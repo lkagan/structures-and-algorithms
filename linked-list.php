@@ -6,7 +6,7 @@ class LinkedList
     public int $length;
 
     /**
-     * Setup the head & tail nodes of the list
+     * Setup the head and tail nodes of the list
      *
      * @param mixed $value
      */
@@ -78,9 +78,9 @@ class LinkedList
         for ($i = 0; $i <= $index; ++$i) {
             if ($i === $index) {
                 return $current;
-            } else {
-                $current = $current->next;
-            }
+            } 
+
+            $current = $current->next;
         }
     }
 }
