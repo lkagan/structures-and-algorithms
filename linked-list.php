@@ -5,12 +5,23 @@ class LinkedList
     public Node $head, $tail;
     public int $length;
 
+    /**
+     * Setup the head & tail nodes of the list
+     *
+     * @param mixed $value
+     */
     public function __construct($value)
     {
         $this->head = $this->tail = new Node($value);
         $this->length = 1;
     }
 
+    /**
+     * Append a node to the end of the list.
+     *
+     * @param mixed $value
+     * @return integer Number of nodes in the list
+     */
     public function append($value): int
     {
         $this->tail->next = new Node($value);
@@ -18,12 +29,26 @@ class LinkedList
         return ++$this->length;
     }
 
+    /**
+     * Prepend a node to the beginning of the list.
+     *
+     * @param mixed $value
+     * @return integer Number of nodes in the list
+     */
     public function prepend($value): int
     {
         $this->head = new Node($value, $this->head);
         return ++$this->length;
     }
 
+    /**
+     * Insert a node anywhere in the list.
+     *
+     * @param integer $index
+     * @param mixed $value
+     * @return integer Number of nodes in the list
+     * @throws InvalidArgumentException
+     */
     public function insert(int $index, $value): int
     {
         if ($index === 0) {
@@ -35,6 +60,13 @@ class LinkedList
         return ++$this->length;
     }
 
+    /**
+     * Get the node at the given index.
+     *
+     * @param integer $index
+     * @return Node
+     * @throws InvalidArgumentException
+     */
     public function nodeAtIndex(int $index): Node
     {
         if ($index < 0 || $index >= $this->length) {
@@ -52,6 +84,7 @@ class LinkedList
         }
     }
 }
+
 
 class Node
 {
