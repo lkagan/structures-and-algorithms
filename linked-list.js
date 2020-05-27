@@ -45,24 +45,12 @@ class LinkedList
      */
     insert(index, value)
     {
-        if ( ! Number.isInteger(index) || index < 0 || index >= this.length) {
-            throw 'Index out of bounds';
-        }
-
         if (index === 0) {
             return this.prepend(value);
         }
 
-        let current = this.head;
-
-        for (let i = 0; i < index; ++i) {
-            if (i === index - 1) {
-                current.next = new Node(value, current.next);
-            } else {
-                current = current.next;
-            }
-        }
-
+        const existingNode = this.nodeAtIndex(index - 1);
+        existingNode.next = new Node(value, existingNode.next);
         return ++this.length;
     }
 
@@ -78,14 +66,14 @@ class LinkedList
             throw 'Index out of bounds';
         } 
 
-        current = this.head;
+        let current = this.head;
 
         for (let i = 0; i <= index; ++i) {
             if (i === index) {
                 return current;
-            } else {
-                current = current.next;
-            }
+            } 
+
+            current = current.next;
         }
     }
 }
