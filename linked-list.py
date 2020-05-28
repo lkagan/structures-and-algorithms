@@ -28,6 +28,17 @@ class LinkedList:
         self.length += 1
         return self.length
 
+    def delete(self, index):
+        ''' Delete a node from the list '''
+        if index == 0:
+            self.head = self.head.next
+        else:
+            node = self.node_at_index(index - 1)
+            node.next = node.next.next
+
+        self.length =- 1
+        return self.length
+
     def node_at_index(self, index):
         ''' Get the node at the given index. '''
         if not isinstance(index, int) or index < 0 or index > self.length:
@@ -55,5 +66,6 @@ list = LinkedList(10)
 list.append(5)
 list.prepend(12)
 list.insert(1, 4)
+list.delete(1)
 print(list.head)
 
