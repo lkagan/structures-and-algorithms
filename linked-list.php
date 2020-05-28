@@ -61,6 +61,25 @@ class LinkedList
     }
 
     /**
+     * Delete a node from the list.
+     *
+     * @param integer $index
+     * @return integer Number of notes in the list
+     */
+    public function delete(int $index): int
+    {
+        if ($index === 0) {
+            $node = $this->head;
+            $this->head = $node->next;
+        } else {
+            $node = $this->nodeAtIndex($index - 1);
+            $node->next = $node->next->next;
+        }
+
+        return --$this->length;
+    }
+
+    /**
      * Get the node at the given index.
      *
      * @param integer $index
@@ -78,7 +97,7 @@ class LinkedList
         for ($i = 0; $i <= $index; ++$i) {
             if ($i === $index) {
                 return $current;
-            } 
+            }
 
             $current = $current->next;
         }
@@ -107,4 +126,5 @@ $list = new LinkedList(10);
 $list->append(5);
 $list->prepend(12);
 $list->insert(1, 4);
+$list->delete(1);
 print($list->head);
