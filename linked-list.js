@@ -55,6 +55,24 @@ class LinkedList
     }
 
     /**
+     * Delete a node from the list.
+     * 
+     * @param {number} index 
+     * @returns {number} Number of nodes in the list
+     */
+    delete(index)
+    {
+        if (index === 0) {
+            this.head = this.head.next;
+        } else {
+            const node = this.nodeAtIndex(index - 1);
+            node.next = node.next.next;
+        }
+
+        return --this.length;
+    }
+
+    /**
      * Get the node at the given index.
      * 
      * @param {number} index 
@@ -91,4 +109,5 @@ const list = new LinkedList(10);
 list.append(5);
 list.prepend(12);
 list.insert(1, 4);
+list.delete(1);
 console.log(JSON.stringify(list.head));
