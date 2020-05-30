@@ -58,11 +58,10 @@ class LinkedList
            return $this->prepend($value);
         }
 
-        $existingNode = $this->nodeAtIndex($index);
-        $previous = $existingNode->previous;
-        $newNode = new Node($value, $previous, $existingNode);
+        $existingNode   = $this->nodeAtIndex($index);
+        $previous       = $existingNode->previous;
+        $newNode        = new Node($value, $previous, $existingNode);
         $previous->next = $newNode;
-        exit($newNode->previous);
         return ++$this->length;
     }
 
@@ -75,10 +74,14 @@ class LinkedList
     public function delete(int $index): int
     {
         if ($index === 0) {
-            $this->head = $this->head->next;
+            $this->head           = $this->head->next;
+            $this->head->previous = null;
         } else {
-            $node = $this->nodeAtIndex($index - 1);
-            $node->next = $node->next->next;
+            $node               = $this->nodeAtIndex($index);
+            $previousNode       = $node->previous;
+            $nextNode           = $node->next;
+            $nextNode->previous = $previousNode;
+            $previousNode->next = $nextNode;
         }
 
         return --$this->length;
