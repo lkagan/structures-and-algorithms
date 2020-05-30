@@ -62,11 +62,7 @@ class LinkedList
         $previous = $existingNode->previous;
         $newNode = new Node($value, $previous, $existingNode);
         $previous->next = $newNode;
-        $existingNode->previous = $newNode;
-
-        print_r($this->head->next);
-        exit;
-
+        exit($newNode->previous);
         return ++$this->length;
     }
 
@@ -138,8 +134,7 @@ class Node
 
 $list = new LinkedList(10);
 $list->append(5);
-//  $list->prepend(12);
-// $list->insert(1, 4);
-// $list->delete(1);
-// print($list->head);
+$list->prepend(12);
+$list->insert(1, 4);
+$list->delete(1);
 print($list->head);
