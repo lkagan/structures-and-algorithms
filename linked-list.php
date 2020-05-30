@@ -24,9 +24,9 @@ class LinkedList
      */
     public function append($value): int
     {
-        $newNode          = new Node($value, $this->tail);
-        $this->tail->next = $newNode;
-        $this->tail       = $newNode;
+        $newTail = new Node($value, $this->tail);
+        $this->tail->next = $newTail;
+        $this->tail = $newTail;
         return ++$this->length;
     }
 
@@ -129,17 +129,17 @@ class Node
     public function __toString()
     {
         return sprintf(
-            '{value: %s, previous: %s, next: %s}', 
+            '{value: %s, next: %s}', 
             $this->value, 
-            $this->previous,
-            $this->next
+            $this->next ?? 'null'
         );
     }
 }
 
 $list = new LinkedList(10);
-// $list->append(5);
+$list->append(5);
 //  $list->prepend(12);
 // $list->insert(1, 4);
 // $list->delete(1);
+// print($list->head);
 print($list->head);
