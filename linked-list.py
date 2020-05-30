@@ -6,6 +6,7 @@ class LinkedList:
         self.length = 1;
 
     def append(self, value):
+        # Testing
         ''' Append a node to the end of the list '''
         self.tail.next = Node(value)
         self.tail = self.tail.next

@@ -24,8 +24,9 @@ class LinkedList
      */
     public function append($value): int
     {
-        $this->tail->next = new Node($value);
-        $this->tail = $this->tail->next;
+        $newNode          = new Node($value, $this->tail);
+        $this->tail->next = $newNode;
+        $this->tail       = $newNode;
         return ++$this->length;
     }
 
@@ -37,7 +38,9 @@ class LinkedList
      */
     public function prepend($value): int
     {
-        $this->head = new Node($value, $this->head);
+        $newNode = new Node($value, null, $this->head);
+        $this->head->previous = $newNode;
+        $this->head = new Node($value, null, $this->head);
         return ++$this->length;
     }
 
@@ -52,11 +55,18 @@ class LinkedList
     public function insert(int $index, $value): int
     {
         if ($index === 0) {
-            return $this->prepend($value);
+           return $this->prepend($value);
         }
 
-        $existingNode = $this->nodeAtIndex($index - 1);
-        $existingNode->next = new Node($value, $existingNode->next);
+        $existingNode = $this->nodeAtIndex($index);
+        $previous = $existingNode->previous;
+        $newNode = new Node($value, $previous, $existingNode);
+        $previous->next = $newNode;
+        $existingNode->previous = $newNode;
+
+        print_r($this->head->next);
+        exit;
+
         return ++$this->length;
     }
 
@@ -69,8 +79,7 @@ class LinkedList
     public function delete(int $index): int
     {
         if ($index === 0) {
-            $node = $this->head;
-            $this->head = $node->next;
+            $this->head = $this->head->next;
         } else {
             $node = $this->nodeAtIndex($index - 1);
             $node->next = $node->next->next;
@@ -108,23 +117,29 @@ class LinkedList
 class Node
 {
     public $value;
-    public ?Node $next;
+    public ?Node $previous, $next;
 
-    public function __construct($value, ?Node $next = null)
+    public function __construct($value, ?Node $prev = null, ?Node $next = null)
     {
-        $this->value = $value;
-        $this->next = $next;
+        $this->value    = $value;
+        $this->previous = $prev;
+        $this->next     = $next;
     }
 
     public function __toString()
     {
-        return sprintf('{value: %s, next: %s}', $this->value, $this->next);
+        return sprintf(
+            '{value: %s, previous: %s, next: %s}', 
+            $this->value, 
+            $this->previous,
+            $this->next
+        );
     }
 }
 
 $list = new LinkedList(10);
-$list->append(5);
-$list->prepend(12);
-$list->insert(1, 4);
-$list->delete(1);
+// $list->append(5);
+//  $list->prepend(12);
+// $list->insert(1, 4);
+// $list->delete(1);
 print($list->head);
