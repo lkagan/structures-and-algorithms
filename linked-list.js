@@ -72,15 +72,14 @@ class LinkedList
         if (index === 0) {
             this.head = this.head.next;
             this.head.previous = null;
-            return --this.length;
-        } 
+        } else {
+            const existingNode = this.nodeAtIndex(index);
+            const previousNode = existingNode.previous;
+            const nextNode     = existingNode.next;
 
-        const existingNode = this.nodeAtIndex(index);
-        const previousNode = existingNode.previous;
-        const nextNode     = existingNode.next;
-
-        previousNode.next = nextNode;
-        nextNode.previous = previousNode;
+            previousNode.next = nextNode;
+            nextNode.previous = previousNode;
+        }
 
         return --this.length;
     }

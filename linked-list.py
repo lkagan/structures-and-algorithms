@@ -26,8 +26,13 @@ class LinkedList:
         if index == 0: 
             return self.prepend(value)
 
-        existing_node = self.node_at_index(index - 1)
-        existing_node.next = Node(value, existing_node.next)
+        existingNode = self.node_at_index(index)
+        previousNode = existingNode.previous;
+        newNode      = Node(value, previousNode, existingNode)
+
+        existingNode.previous = newNode;
+        previousNode.next     = newNode;
+
         self.length += 1
         return self.length
 
@@ -35,9 +40,14 @@ class LinkedList:
         ''' Delete a node from the list '''
         if index == 0:
             self.head = self.head.next
+            self.head.previous = None
         else:
-            node = self.node_at_index(index - 1)
-            node.next = node.next.next
+            existing_node = self.node_at_index(index)
+            previous_node = existing_node.previous;
+            next_node     = existing_node.next;
+
+            previous_node.next = next_node;
+            next_node.previous = previous_node
 
         self.length =- 1
         return self.length
@@ -69,7 +79,7 @@ class Node:
 list = LinkedList(10)
 list.append(5)
 list.prepend(12)
-# list.insert(1, 4)
-# list.delete(1)
+list.insert(1, 4)
+list.delete(1)
 print(list.head)
 
