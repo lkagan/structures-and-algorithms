@@ -71,10 +71,16 @@ class LinkedList
     {
         if (index === 0) {
             this.head = this.head.next;
-        } else {
-            const node = this.nodeAtIndex(index - 1);
-            node.next = node.next.next;
-        }
+            this.head.previous = null;
+            return --this.length;
+        } 
+
+        const existingNode = this.nodeAtIndex(index);
+        const previousNode = existingNode.previous;
+        const nextNode     = existingNode.next;
+
+        previousNode.next = nextNode;
+        nextNode.previous = previousNode;
 
         return --this.length;
     }
