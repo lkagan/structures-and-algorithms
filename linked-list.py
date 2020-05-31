@@ -6,17 +6,19 @@ class LinkedList:
         self.length = 1;
 
     def append(self, value):
-        # Testing
         ''' Append a node to the end of the list '''
-        self.tail.next = Node(value)
-        self.tail = self.tail.next
-        self.length += 1
+        newNode         = Node(value, self.tail)
+        self.tail.next  = newNode
+        self.tail       = newNode;
+        self.length    += 1
         return self.length
 
     def prepend(self, value):
         ''' Prepend a node to the beginning of the list '''
-        self.head = Node(value, self.head)
-        self.length += 1
+        newNode             = Node(value, None, self.head)
+        self.head.previous  = newNode
+        self.head           = newNode
+        self.length        += 1
         return self.length
 
     def insert(self, index, value):
@@ -55,9 +57,10 @@ class LinkedList:
 
 class Node:
 
-    def __init__(self, value, next = None):
-        self.value = value
-        self.next = next
+    def __init__(self, value, prev = None, next = None):
+        self.value    = value
+        self.previous = prev
+        self.next     = next
 
     def __str__(self):
         return '{{value: {}, next: {}}}'.format(self.value, self.next)
@@ -66,7 +69,7 @@ class Node:
 list = LinkedList(10)
 list.append(5)
 list.prepend(12)
-list.insert(1, 4)
-list.delete(1)
+# list.insert(1, 4)
+# list.delete(1)
 print(list.head)
 
