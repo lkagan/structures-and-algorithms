@@ -12,7 +12,7 @@ class LinkedList
      */
     public function __construct($value)
     {
-        $this->head = $this->tail = new Node($value);
+        $this->head   = $this->tail = new Node($value);
         $this->length = 1;
     }
 
@@ -24,9 +24,9 @@ class LinkedList
      */
     public function append($value): int
     {
-        $newTail = new Node($value, $this->tail);
+        $newTail          = new Node($value, $this->tail);
         $this->tail->next = $newTail;
-        $this->tail = $newTail;
+        $this->tail       = $newTail;
         return ++$this->length;
     }
 
@@ -38,9 +38,9 @@ class LinkedList
      */
     public function prepend($value): int
     {
-        $newNode = new Node($value, null, $this->head);
+        $newNode              = new Node($value, null, $this->head);
         $this->head->previous = $newNode;
-        $this->head = new Node($value, null, $this->head);
+        $this->head           = new Node($value, null, $this->head);
         return ++$this->length;
     }
 
@@ -55,7 +55,7 @@ class LinkedList
     public function insert(int $index, $value): int
     {
         if ($index === 0) {
-           return $this->prepend($value);
+            return $this->prepend($value);
         }
 
         $existingNode   = $this->nodeAtIndex($index);
@@ -88,6 +88,38 @@ class LinkedList
     }
 
     /**
+     * Reverse the linked list using only singly-linked algorithm.
+     *
+     * @return void
+     */
+    public function reverse()
+    {
+        if ($this->length === 1) {
+            return;
+        }
+
+        $previous = null;
+        $current  = $this->head;
+
+        while ($current) {
+            // Keep a pointer to 'next'
+            $next = $current->next;
+
+            // Point 'next' to the previous node.
+            $current->next = $previous;
+
+            // Get ready for next iteration by making previous = current
+            // and current = next;
+            $previous = $current;
+            $current  = $next;
+        }
+
+        $temp       = $this->head;
+        $this->head = $this->tail;
+        $this->tail = $temp;
+    }
+
+    /**
      * Get the node at the given index.
      *
      * @param integer $index
@@ -115,9 +147,16 @@ class LinkedList
 
 class Node
 {
-    public $value;
+    public       $value;
     public ?Node $previous, $next;
 
+    /**
+     * Create a new node.
+     *
+     * @param mixed $value
+     * @param Nodenull $prev
+     * @param Node|null $next
+     */
     public function __construct($value, ?Node $prev = null, ?Node $next = null)
     {
         $this->value    = $value;
@@ -125,11 +164,16 @@ class Node
         $this->next     = $next;
     }
 
+    /**
+     * Get string representation of object.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return sprintf(
-            '{value: %s, next: %s}', 
-            $this->value, 
+            '{value: %s, next: %s}',
+            $this->value,
             $this->next ?? 'null'
         );
     }
@@ -140,4 +184,5 @@ $list->append(5);
 $list->prepend(12);
 $list->insert(1, 4);
 $list->delete(1);
+$list->reverse();
 print($list->head);
