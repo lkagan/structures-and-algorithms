@@ -2,10 +2,10 @@ class LinkedList
 {
     /**
      * Setup the head and tail nodes of the list
-     *  
-     * @param {*} value 
+     *
+     * @param {*} value
      */
-    constructor(value) 
+    constructor(value)
     {
         this.head = this.tail = new Node(value);
         this.length = 1;
@@ -13,11 +13,11 @@ class LinkedList
 
     /**
      * Append a node to the end of the list.
-     * 
-     * @param {*} value 
+     *
+     * @param {*} value
      * @returns {number} Number of nodes in the list
      */
-    append(value) 
+    append(value)
     {
         const newNode = new Node(value, this.tail);
         this.tail.next = newNode;
@@ -27,11 +27,11 @@ class LinkedList
 
     /**
      * Prepend a node to the beginning of the list.
-     * 
-     * @param {*} value 
+     *
+     * @param {*} value
      * @returns {number} Number of nodes in the list
      */
-    prepend(value) 
+    prepend(value)
     {
         const newNode = new Node(value, null, this.head);
         this.head.previous = newNode;
@@ -41,9 +41,9 @@ class LinkedList
 
     /**
      * Insert a node anywhere in the list.
-     * 
-     * @param {number} index 
-     * @param {*} value 
+     *
+     * @param {number} index
+     * @param {*} value
      * @returns {number} Number of nodes in the list
      */
     insert(index, value)
@@ -63,8 +63,8 @@ class LinkedList
 
     /**
      * Delete a node from the list.
-     * 
-     * @param {number} index 
+     *
+     * @param {number} index
      * @returns {number} Number of nodes in the list
      */
     delete(index)
@@ -85,23 +85,47 @@ class LinkedList
     }
 
     /**
+     * Reverse the linked list using only singly-linked algorithm.
+     */
+    reverse()
+    {
+        if (this.length === 1) {
+            return;
+        }
+
+        let prev = null;
+        let current = this.head;
+
+        while (current) {
+            let next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        let temp = this.head;
+        this.head = this.tail;
+        this.tail = temp;
+    }
+
+    /**
      * Get the node at the given index.
-     * 
-     * @param {number} index 
+     *
+     * @param {number} index
      * @return {Node}
      */
     nodeAtIndex(index)
     {
         if ( ! Number.isInteger(index) || index < 0 || index >= this.length) {
             throw 'Index out of bounds';
-        } 
+        }
 
         let current = this.head;
 
         for (let i = 0; i <= index; ++i) {
             if (i === index) {
                 return current;
-            } 
+            }
 
             current = current.next;
         }
@@ -136,4 +160,5 @@ list.append(5);
 list.prepend(12);
 list.insert(1, 4);
 list.delete(1);
+list.reverse();
 list.print();
