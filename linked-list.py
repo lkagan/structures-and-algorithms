@@ -52,6 +52,24 @@ class LinkedList:
         self.length = - 1
         return self.length
 
+    def reverse(self):
+        """ Reverse the linked list using only singly-linked algorithm. """
+        if self.length == 1:
+            return
+
+        prev = None
+        current = self.head
+
+        while current:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
     def node_at_index(self, index):
         """ Get the node at the given index. """
         if not isinstance(index, int) or index < 0 or index > self.length:
@@ -82,4 +100,5 @@ my_list.append(5)
 my_list.prepend(12)
 my_list.insert(1, 4)
 my_list.delete(1)
+my_list.reverse()
 print(my_list.head)
