@@ -12,6 +12,11 @@ class Stack {
         this.length = 0;
     }
 
+    /**
+     * Get the value from the top of the stack without removing it.
+     *
+     * @returns {*}
+     */
     peek() {
         if (this.length === 0) {
             throw new Error('No values in stack');
@@ -20,14 +25,14 @@ class Stack {
         return this.top.value;
     }
 
+    /**
+     * Push a value on to the stack.
+     *
+     * @param {*} value
+     * @returns {number}
+     */
     push(value) {
-        if (!value) {
-            throw new Error('Value is required');
-        }
-
-        const temp = this.top;
-        this.top = new Node(value);
-        this.top.next = temp;
+        this.top = new Node(value, this.top);
 
         if (this.length === 0) {
             this.bottom = this.top;
@@ -36,6 +41,11 @@ class Stack {
         return ++this.length;
     }
 
+    /**
+     * Pop a value off the stack.
+     *
+     * @returns {*}
+     */
     pop() {
         if (this.length === 0) {
             throw new Error('No values in stack');
@@ -59,11 +69,11 @@ myStack.push('Netflix');
 myStack.push('Amazon');
 myStack.push('Google');
 
-console.log(myStack.isEmpty());
+console.log(myStack.isEmpty() ? 'empty' : 'not empty');
 
 console.log(myStack.peek());
 console.log(myStack.pop());
 console.log(myStack.pop());
 console.log(myStack.pop());
 
-console.log(myStack.isEmpty());
+console.log(myStack.isEmpty() ? 'empty' : 'not empty');
