@@ -10,9 +10,10 @@ class Node
      *
      * @param $value
      */
-    public function __construct($value)
+    public function __construct($value, ?Node $next = null)
     {
         $this->value = $value;
+        $this->next = $next;
     }
 }
 
