@@ -1,4 +1,4 @@
-const Queue = require('./Queue');
+const Queue = require('./QueueFromStack');
 
 const myQueue = new Queue();
 console.log(myQueue.isEmpty());

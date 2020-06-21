@@ -9,11 +9,11 @@ module.exports = class Stack {
      * @returns {*}
      */
     peek() {
-        if (this.values.length === 0) {
+        if (this.length() === 0) {
             throw new Error('No values in stack');
         }
 
-        return this.values[this.values.length - 1];
+        return this.values[this.length() - 1];
     }
 
     /**
@@ -23,8 +23,8 @@ module.exports = class Stack {
      * @returns {number}
      */
     push(value) {
-        this.values[this.values.length] = value;
-        return this.values.length;
+        this.values[this.length()] = value;
+        return this.length();
     }
 
     /**
@@ -33,14 +33,18 @@ module.exports = class Stack {
      * @returns {*}
      */
     pop() {
-        if (this.values.length === 0) {
+        if (this.length() === 0) {
             throw new Error('No values in stack');
         }
 
-        return this.values.splice(this.values.length - 1, 1)[0];
+        return this.values.splice(this.length() - 1, 1)[0];
     }
 
     isEmpty() {
-        return !this.values.length;
+        return !this.length();
+    }
+
+    length() {
+        return this.values.length;
     }
 }
