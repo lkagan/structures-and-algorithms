@@ -40,6 +40,8 @@ function test(args) {
 1. Remove constants
     * Remove single ops
     * Remove divisors / multipliers
+    
+      * If number of args is only used as a multiplier or divisor, disregard the multiplier or divisor.
 
 1. Different terms for inputs
 
@@ -79,17 +81,17 @@ function test(args) {
 
 * `O(a*b)`
 
-  ```javascript
-    function test(var1, var2) {
-      for (let i = 0; i < var1.length; ++i) {
-        for (let j = 0; j < var2.length; ++j) {
-          doSomething();
-        }
-    }
-  ```
+```javascript
+  function test(var1, var2) {
+    for (let i = 0; i < var1.length; ++i) {
+      for (let j = 0; j < var2.length; ++j) {
+        doSomething();
+      }
+  }
+```
 
-  * `O(n!)`: Factorial time.  Pronounced Oh n factorial
-    * Creates a nested loop for each input.  Never use it!
+* `O(n!)`: Factorial time.  Pronounced Oh n factorial
+  * Creates a nested loop for each input.  Never use it!
 
 ## Space Complexity
 
@@ -253,3 +255,22 @@ function test(args) {
   * Node to the right of the current node must be greater than the value of the current node.
   * Insert , delete & lookup are `O(log N)` 
   * Unbalanced search trees effectively turn into linked lists with a linear time complexity, `O(n)`.
+
+
+## Topographical Sort
+
+* Indegree factor: number of edges pointing to a vertex.
+* Can only be used on a DAG (Directed Acyclic Graph).
+* Digraph is a graph with directed edges.
+* Notation
+  * Edges are defined as a set of vertices.
+  * An undirected edge is represented with two element subsets of the vertex set {u, v}.
+    * Sets don't have order.
+  * An directed edge is represented with an ordered pair (u, v).
+    * From u to v.
+    * Also called arcs
+    * v is adjacent _from_ u
+    * u is adjacent _to_ v
+  * Any vertex that has a connection to another is _incident with_ that vertex.
+  * The indegree of u is denoted as `i du`.
+  * The outdegree of u is denoted as `o du`
